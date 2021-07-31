@@ -7,3 +7,25 @@ body {
     height: 100%;
     width: 100%;
 }
+.imgae-first {
+    background: url('../image/01.jpg');
+    background-repeat: no-repeat;
+    width: 100px;
+    height: 100px;
+    background-size: 100px 100px;
+    
+}
+.imgae-secound {
+    background: url('../image/02.jpg');
+    background-repeat: no-repeat;
+    width: 100px;
+    height: 100px;
+    background-size: 100px 100px;
+}
+.imgae-third {
+    background: url('../image/03.jpg');
+    background-repeat: no-repeat;
+    width: 100px;
+    height: 100px;
+    background-size: 100px 100px;
+}

@@ -25,7 +25,20 @@ const config = {
       {
         test:/\.less$/,
         use:['style-loader','css-loader','less-loader'],
-      }
+      },
+      {
+        test: /\.(png|jpg|gif)$/i,
+        dependency: { not: ['url'] },
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 8192,
+            }
+          },
+        ],
+       type: 'javascript/auto'
+      },
     ],
   },
   plugins: [

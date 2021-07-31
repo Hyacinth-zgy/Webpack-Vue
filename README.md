@@ -51,3 +51,30 @@ webpack会以./src/index.js 为入口开始打包，打包后输出到./build.js
         }),
 
 
+######## 打包图片资源 下载url-loader file-loader:url-loader依赖于file-loader npm i url-loader file-loader -D
+         配置:
+      {
+        test: /\.(png|jpg|gif)$/i,
+        //如需从 asset loader 中排除来自新 URL 处理的 asset，请添加 dependency: { not: ['url'] } 到 loader 配置中。
+        dependency: { not: ['url'] },
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              // limit:图片大小小于8KB，就会被base64处理,其他的大于8KB的会被打包进入build文件夹，
+              // ------优点:减轻服务器压力
+              // ------缺点:图片体积非常大，文件请求非常大
+              limit: 8192,
+            }
+          },
+        ],
+        // 当在 webpack 5 中使用旧的 assets loader（如 file-loader/url-loader/raw-loader 等）和 asset 模块时，你可能想停止当前 asset 模块的处理，并再次启动处理，这可能会导致 asset 重复，你可以通过将 asset 模块的类型设置为 'javascript/auto' 来解决。
+       type: 'javascript/auto'
+      },
+
+
+
+    
+
+
+
