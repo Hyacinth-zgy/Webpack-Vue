@@ -4,7 +4,9 @@
   "description": "a good project develop webpack",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rm -rf ./build && webpack ./src/index.js -o ./build/build.js --mode=production",
+    "dev": "rm -rf ./devbuild && webpack ./src/index.js -o ./devbuild/build.js --mode=development"
   },
   "repository": {
     "type": "git",
