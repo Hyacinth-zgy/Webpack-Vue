@@ -34,4 +34,20 @@ webpack会以./src/index.js 为入口开始打包，打包后输出到./build.js
         use:[ MiniCssExtractPlugin.loader,'css-loader','less-loader'],
     },
 
+######## 打包html文件资源 npm i html-webpack-plugin -D
+         html-webpack-plugin:默认会创建一个空的html文件，自动引入打包输出的所有资源（JS/CSS）
+         当我们需要有结构的html文件时，需要给html-webpack-plugin传递参数
+        new HtmlWebpckPlugin({
+            # 作用:复制./src/index.html，并自动引入打包输出的所有资源
+            # 工作原理:
+            template:'./src/index.html',
+            # 压缩HTML配置
+            minify:{
+              # 移除空格
+              collapseWhitespace:true,
+              # 移除注释
+              removeComments:true
+            }
+        }),
+
 

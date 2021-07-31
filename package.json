@@ -23,6 +23,7 @@
   "homepage": "https://github.com/Hyacinth-zgy/Webpack-Vue#readme",
   "devDependencies": {
     "css-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.3.2",
     "less": "^4.1.1",
     "less-loader": "^10.0.1",
     "style-loader": "^3.2.1",
