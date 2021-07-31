@@ -1,0 +1,26 @@
+{
+  "name": "webapck-crm",
+  "version": "1.0.0",
+  "description": "a good project develop webpack",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hyacinth-zgy/Webpack-Vue.git"
+  },
+  "keywords": [
+    "webpaktest"
+  ],
+  "author": "Hycinthy-zgy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Hyacinth-zgy/Webpack-Vue/issues"
+  },
+  "homepage": "https://github.com/Hyacinth-zgy/Webpack-Vue#readme",
+  "devDependencies": {
+    "webpack": "^5.47.1",
+    "webpack-cli": "^4.7.2"
+  }
+}
