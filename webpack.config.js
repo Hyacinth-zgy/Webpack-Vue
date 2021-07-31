@@ -38,8 +38,6 @@ const config = {
               outputPath: "images/", // 属于file-loader的属性
               publicPath: "images/",  // 属于file-loader的属性
             },
-            
-
           },
         ],
         
@@ -48,6 +46,15 @@ const config = {
       {
         test:/\.html$/,
         loader:'html-loader'
+      },
+      {
+        exclude:/\.(css|js|html|less|json)$/,
+        dependency: { not: ['url'] },
+        loader:'file-loader',
+        options: {
+          name: '[hash:10].[ext]'
+        },
+        type: 'javascript/auto'
       },
     ],
   },
