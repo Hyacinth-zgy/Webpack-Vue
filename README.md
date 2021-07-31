@@ -51,7 +51,7 @@ webpack会以./src/index.js 为入口开始打包，打包后输出到./build.js
         }),
 
 
-######## 打包图片资源 下载url-loader file-loader:url-loader依赖于file-loader npm i url-loader file-loader -D
+######## 打包图片资源【样式文件】 下载url-loader file-loader:url-loader依赖于file-loader npm i url-loader file-loader -D
          配置:
       {
         test: /\.(png|jpg|gif)$/i,
@@ -65,6 +65,10 @@ webpack会以./src/index.js 为入口开始打包，打包后输出到./build.js
               // ------优点:减轻服务器压力
               // ------缺点:图片体积非常大，文件请求非常大
               limit: 8192,
+              // 因为图片的引入是引入图片打包生成的唯一HASH值，名字比较长，所以可以配置name属性
+              // [hash:10]:代表取hash值的前10位作为名字
+              // [ext]:代表取文件的原扩展名，原来后缀是png就是png，是jpg就是jpg
+              name:'[hash:10].[ext]',
             }
           },
         ],
@@ -72,6 +76,14 @@ webpack会以./src/index.js 为入口开始打包，打包后输出到./build.js
        type: 'javascript/auto'
       },
 
+######## 打包图片资源【html文件中的图片】
+      {
+        test:/\.html$/,
+        // html-loader:专门处理image图片（负责html文件中通过src引入的img，从而能被url-loader进行处理） npm i html-loader -D
+        // 问题:url-loader默认使用ES6模块解析，而html-loader引入图片是commonJS
+        // 解决: 关闭url-loader的ES6模块化，使用commonJS解析  esModule:false(最新的webapck版本不需要处理)
+        loader:'html-loader'
+      },
 
 
     

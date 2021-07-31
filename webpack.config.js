@@ -33,11 +33,21 @@ const config = {
           {
             loader: 'url-loader',
             options: {
-              limit: 8192,
-            }
+              limit: 8129,
+              name:'img/[hash:10].[ext]', // 属于file-loader的属性
+              outputPath: "images/", // 属于file-loader的属性
+              publicPath: "images/",  // 属于file-loader的属性
+            },
+            
+
           },
         ],
+        
        type: 'javascript/auto'
+      },
+      {
+        test:/\.html$/,
+        loader:'html-loader'
       },
     ],
   },
