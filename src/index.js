@@ -2,6 +2,7 @@
 import data from './data.json'
 import {getLocaL} from './utill/hepler'
 import './asset/style/index.css'
+import './asset/less/index.less'
 window.getLocaL = getLocaL;
 console.log(data.name)
 export function add(x,y){

@@ -1,2 +1,8 @@
 # node_modules //忽略npm包
 node_modules
+
+# build
+build
+
+#devbuild
+devbuild

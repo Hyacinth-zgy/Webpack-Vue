@@ -25,3 +25,13 @@ webpack会以./src/index.js 为入口开始打包，打包后输出到./build.js
           'style-loader','css-loader'
         ]
     }
+
+######## 打包less文件资源 npm i less -D  npm i less-loader -D
+         less-loader:将less文件编译成css文件 然后css-loader接着工作，在接着style.css接着工作
+         配置：
+    {
+        test:/\.less$/,
+        use:[ MiniCssExtractPlugin.loader,'css-loader','less-loader'],
+    },
+
+
