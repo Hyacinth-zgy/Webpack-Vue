@@ -85,6 +85,19 @@ webpack会以./src/index.js 为入口开始打包，打包后输出到./build.js
         loader:'html-loader'
       },
 
+######## 配置打包其他资源
+      {
+        // 排除法：除了这些类型的文件
+        exclude:/\.(css|js|html|less|json)$/,
+        dependency: { not: ['url'] },
+        loader:'file-loader',
+        options: {
+          name: '[hash:10].[ext]'
+        },
+        type: 'javascript/auto'
+      },
+
+
 
     
 
