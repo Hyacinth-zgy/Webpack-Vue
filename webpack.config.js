@@ -11,7 +11,7 @@ const config = {
   // mode: 'production', 这里不指定mode，通过脚本命令传递参数进来
   entry: './src/index.js',
   output: {
-    filename:'build.js',
+    filename:'js/build.js',
     path:resolve(__dirname,'build')
   },
   module: {
@@ -34,9 +34,10 @@ const config = {
             loader: 'url-loader',
             options: {
               limit: 8129,
-              name:'img/[hash:10].[ext]', // 属于file-loader的属性
-              outputPath: "images/", // 属于file-loader的属性
-              publicPath: "images/",  // 属于file-loader的属性
+              name:'[hash:10].[ext]', // 属于file-loader的属性
+              outputPath: 'image', // 属于file-loader的属性
+              // publicPath: 'asse',  // 属于file-loader的属性
+              esModule:false,
             },
           },
         ],
@@ -52,7 +53,8 @@ const config = {
         dependency: { not: ['url'] },
         loader:'file-loader',
         options: {
-          name: '[hash:10].[ext]'
+          name: '[hash:10].[ext]',
+          outputPath: 'medio',
         },
         type: 'javascript/auto'
       },
