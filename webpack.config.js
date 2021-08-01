@@ -3,6 +3,7 @@
 const { resolve }  = require('path');
 const HtmlWebpckPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 
 let CSSLOAD = {
   test:/\.css$/,
@@ -115,7 +116,10 @@ module.exports = (env, argv) => {
         filename:'css/build.css'
       });
       // 利用postcss 和 postcss-preset-env[配置浏览器兼容预设]解决css的兼容性问题
-      config.plugins.push(miniCssExtractPlugin)
+      config.plugins.push(miniCssExtractPlugin);
+      // 压缩CSS
+      config.plugins.push(new OptimizeCssAssetsPlugin());
+      
     }
 
   return config;
