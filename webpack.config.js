@@ -2,6 +2,16 @@
 // 运行webpakck是会加载此文件
 const { resolve }  = require('path');
 const HtmlWebpckPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
+let CSSLOAD = {
+  test:/\.css$/,
+  use:[
+    'style-loader','css-loader'
+  ]
+};
+
+
 
 const config = {
   resolve: {
@@ -16,12 +26,7 @@ const config = {
   },
   module: {
     rules: [
-      {
-        test:/\.css$/,
-        use:[
-          'style-loader','css-loader'
-        ]
-      },
+      CSSLOAD,
       {
         test:/\.less$/,
         use:['style-loader','css-loader','less-loader'],
@@ -82,6 +87,35 @@ module.exports = (env, argv) => {
         open:true,
         hot:true
       }
+    }
+    if(argv.mode==='production'){
+      // 提取CSS文件为单独文件
+      CSSLOAD = {
+        test:/\.css$/,
+        use:[MiniCssExtractPlugin.loader,'css-loader']
+      }
+      // CSS兼容性处理
+      CSSLOAD.use.push({
+        loader: 'postcss-loader',
+        options: {
+          postcssOptions: {
+            plugins: [
+              [
+                'postcss-preset-env',
+                {
+                  // 其他选项
+                },
+              ],
+            ],
+          },
+        }});
+      config.module.rules[0] = CSSLOAD;
+      const miniCssExtractPlugin =  new MiniCssExtractPlugin({
+        // 配置提取出来的css文件名
+        filename:'css/build.css'
+      });
+      // 利用postcss 和 postcss-preset-env[配置浏览器兼容预设]解决css的兼容性问题
+      config.plugins.push(miniCssExtractPlugin)
     }
 
   return config;

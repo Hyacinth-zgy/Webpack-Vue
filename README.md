@@ -117,9 +117,54 @@ webpack会以./src/index.js 为入口开始打包，打包后输出到./build.js
       hot:true
     },
 
+######## 生产环境提取CSS为单独文件
+    // MiniCssExtractPlugin.loader:使用MiniCssExtractPlugin.loader替换style-loader，并会自动引入打包生成的资源
+    // 作用:将JS中的CSS文件提取成单独的文件
+    导入:
+    const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+    rules:
+    {
+      test:/\.css$/,
+      use:[MiniCssExtractPlugin.loader,'css-loader']
+    }
+    plugin:
+    // 将JS中的CSS提取出来的插件
+    // npm i mini-css-extract-plugin -D
+    new MiniCssExtractPlugin({
+      // 配置提取出来的css文件名
+      filename:'css/build.css'
+    }),
 
-
-    
+######## 生产环境 CSS兼容性处理
+      // 利用postcss 和postcss-preset-env[指定兼容浏览器]解决css的兼容性问题
+      // 在pakage.json中配置:
+        "browserslist": {
+          "development": [
+          "last 1 chrome version",
+          "last 1 firefox version",
+          "last 1 safari version"
+          ],
+        "production": [
+          ">0.2%",
+          "not dead",
+          "not op_mini all"
+        ]
+      }
+      配置:
+      {
+        loader: 'postcss-loader',
+        options: {
+          postcssOptions: {
+            plugins: [
+              [
+                'postcss-preset-env',
+                {
+                  // 其他选项
+                },
+              ],
+            ],
+          },
+        }}
 
 
 
