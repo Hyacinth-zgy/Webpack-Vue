@@ -97,6 +97,26 @@ webpack会以./src/index.js 为入口开始打包，打包后输出到./build.js
         type: 'javascript/auto'
       },
 
+######## devServer 开发服务器
+    // 开发服务器:devServer:用来自动化打包（自动编译->监视文件的变化，用来自动打开浏览器，自动刷新浏览器） npm i webpack-dev-server -D
+    // 特点:没有输出，只会在内存中编译打包，不会有任何输出
+    // 启动devServer指令为：npx webpack-dev-server[废弃]   npx webpack serve[有效]
+    因为webpack5.X与webpack-dev-server有些冲突，无法直接使用webpack-dev-server启动服务，只能通过这种方式去调用webpack-dev-server，并且这种方式不能使用 --open 自动打开浏览器，也有可能是我没找到正确打开方式
+    // npx:局部安装的服务，需要用npx
+    devServer:{
+      // 项目构建后的路径
+      contentBase:resolve(__dirname,'build'),
+      // 启动gzip压缩
+      compress:true,
+      // 端口号
+      port:3000,
+      // 默认自动打开浏览器
+      open:true,
+      // HMR功能
+      // 修改了webpack配置，新配置想要生效，必须重新启动webpack服务
+      hot:true
+    },
+
 
 
     

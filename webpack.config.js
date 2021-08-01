@@ -67,6 +67,15 @@ const config = {
       }
   }),
   ],
+  devServer:{
+    // 项目构建后的路径
+    contentBase:resolve(__dirname,'build'),
+    compress:true,
+    port:3000,
+    open:true,
+    hot:true
+  },
+
 };
 
 module.exports = (env, argv) => {
