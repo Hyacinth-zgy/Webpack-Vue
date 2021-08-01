@@ -12,7 +12,15 @@ let CSSLOAD = {
   ]
 };
 
-
+const ESLINT = {
+  test:/\.js$/,
+  exclude:/node_modules/,
+  loader:'eslint-loader',
+  options:{
+    // 自动修复
+    fix:true
+  }
+};
 
 const config = {
   resolve: {
@@ -64,6 +72,7 @@ const config = {
         },
         type: 'javascript/auto'
       },
+
     ],
   },
   plugins: [
@@ -79,6 +88,7 @@ const config = {
 
 module.exports = (env, argv) => {
     if(argv.mode==='development'){
+      config.module.rules.push(ESLINT)
       config.output.path = resolve(__dirname,'devbuild');
       config.devServer = {
         // 项目构建后的路径
@@ -119,7 +129,6 @@ module.exports = (env, argv) => {
       config.plugins.push(miniCssExtractPlugin);
       // 压缩CSS
       config.plugins.push(new OptimizeCssAssetsPlugin());
-      
     }
 
   return config;
