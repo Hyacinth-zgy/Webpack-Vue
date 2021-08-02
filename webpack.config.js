@@ -120,7 +120,33 @@ module.exports = (env, argv) => {
             ],
           },
         }});
+
       config.module.rules[0] = CSSLOAD;
+      config.module.rules.push({
+        test:/\.js$/,
+        exclude:/node_modules/,
+        loader:'babel-loader',
+        options:{
+          presets:[
+            [
+              '@babel/preset-env',
+              {
+                useBuiltIns:'usage',
+                corejs:{
+                  version:3
+                },
+                targets:{
+                  chrome:'60',
+                  firefox:'60',
+                  ie:'9',
+                  safari:'10',
+                  edge:'17'
+                }
+              }
+            ]
+          ]
+        }
+      })
       const miniCssExtractPlugin =  new MiniCssExtractPlugin({
         // 配置提取出来的css文件名
         filename:'css/build.css'
