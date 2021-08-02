@@ -97,7 +97,9 @@ module.exports = (env, argv) => {
         port:3000,
         open:true,
         hot:true
-      }
+      };
+      // HTML热更新
+      config.entry = ['./src/index.js','./src/index.html']
     }
     if(argv.mode==='production'){
       // 提取CSS文件为单独文件
