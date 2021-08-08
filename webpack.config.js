@@ -35,44 +35,46 @@ const config = {
   },
   module: {
     rules: [
-      CSSLOAD,
       {
-        test:/\.less$/,
-        use:['style-loader','css-loader','less-loader'],
-      },
-      {
-        test: /\.(png|jpg|gif)$/i,
-        dependency: { not: ['url'] },
-        use: [
+        oneOf:[
+          CSSLOAD,
           {
-            loader: 'url-loader',
-            options: {
-              limit: 8129,
-              name:'[hash:10].[ext]', // 属于file-loader的属性
-              outputPath: 'image', // 属于file-loader的属性
-              // publicPath: 'asse',  // 属于file-loader的属性
-              esModule:false,
-            },
+            test:/\.less$/,
+            use:['style-loader','css-loader','less-loader'],
           },
-        ],
-        
-       type: 'javascript/auto'
+          {
+            test: /\.(png|jpg|gif)$/i,
+            dependency: { not: ['url'] },
+            use: [
+              {
+                loader: 'url-loader',
+                options: {
+                  limit: 8129,
+                  name:'[hash:10].[ext]', // 属于file-loader的属性
+                  outputPath: 'image', // 属于file-loader的属性
+                  // publicPath: 'asse',  // 属于file-loader的属性
+                  esModule:false,
+                },
+              },
+            ],
+           type: 'javascript/auto'
+          },
+          {
+            test:/\.html$/,
+            loader:'html-loader'
+          },
+          {
+            exclude:/\.(css|js|html|less|json)$/,
+            dependency: { not: ['url'] },
+            loader:'file-loader',
+            options: {
+              name: '[hash:10].[ext]',
+              outputPath: 'medio',
+            },
+            type: 'javascript/auto'
+          },
+        ]
       },
-      {
-        test:/\.html$/,
-        loader:'html-loader'
-      },
-      {
-        exclude:/\.(css|js|html|less|json)$/,
-        dependency: { not: ['url'] },
-        loader:'file-loader',
-        options: {
-          name: '[hash:10].[ext]',
-          outputPath: 'medio',
-        },
-        type: 'javascript/auto'
-      },
-
     ],
   },
   plugins: [
@@ -99,7 +101,8 @@ module.exports = (env, argv) => {
         hot:true
       };
       // HTML热更新
-      config.entry = ['./src/index.js','./src/index.html']
+      config.entry = ['./src/index.js','./src/index.html'];
+      config.devtool='source-map';
     }
     if(argv.mode==='production'){
       // 提取CSS文件为单独文件
@@ -123,7 +126,7 @@ module.exports = (env, argv) => {
           },
         }});
 
-      config.module.rules[0] = CSSLOAD;
+      config.module.rules[0].oneOf[0] = CSSLOAD;
       config.module.rules.push({
         test:/\.js$/,
         exclude:/node_modules/,
