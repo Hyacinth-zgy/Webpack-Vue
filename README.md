@@ -315,6 +315,37 @@ import(/*webpackChunkName:'text'*/'./add').then(value=>{
 }).catch(()=>{
   console.log('文件加载失败')
 })
+
+
+// 懒加载
+// import {add} from './add'; 这样引入时，add.js文件没有被使用也会被加载
+// 懒加载：即使用时加载，懒加载是建立在代码分割的基础上进行的。当我们点击#add按钮时才会加载
+// 将import放到了一个异步的回调函数中
+document.querySelector('#add').onClick = function(){
+  import(/*webpackChunkName:'text'*/'./add').then(value=>{
+    console.log(value);
+    console.log('文件加载成功')
+  }).catch(()=>{
+    console.log('文件加载失败')
+  })
+}
+// 预加载:
+// 会在使用前，提前加载JS文件
+// 与正常加载的区别:
+// ---------正常加载:同一时间加载多个文件，并行加载
+// ---------等其他资源加载完毕，浏览器加载完毕了，浏览器空闲了，在偷偷加载资源
+// 为了使得eslint支持浏览器的全局变量，在package.json的eslint配置中加上以下配置支持浏览器全局变量
+// "env":{
+//   "browser":true
+// }
+document.querySelector('#add').onClick = function(){
+  import(/*webpackChunkName:'text',webpackPrefetch:true*/'./add').then(value=>{
+    console.log(value);
+    console.log('文件加载成功')
+  }).catch(()=>{
+    console.log('文件加载失败')
+  })
+}
   
   
 
