@@ -30,7 +30,7 @@ const config = {
   // mode: 'production', 这里不指定mode，通过脚本命令传递参数进来
   entry: './src/index.js',
   output: {
-    filename:'js/build.js',
+    filename:'js/build.[contenthash:10].js',
     path:resolve(__dirname,'build')
   },
   module: {
@@ -155,7 +155,7 @@ module.exports = (env, argv) => {
       })
       const miniCssExtractPlugin =  new MiniCssExtractPlugin({
         // 配置提取出来的css文件名
-        filename:'css/build.css'
+        filename:'css/build.[contenthash:10].css'
       });
       // 利用postcss 和 postcss-preset-env[配置浏览器兼容预设]解决css的兼容性问题
       config.plugins.push(miniCssExtractPlugin);
