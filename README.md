@@ -277,6 +277,15 @@ webpack会以./src/index.js 为入口开始打包，打包后输出到./build.js
   //-----02.使用chunckhash:跟俊chunk生成的hash值，如果打包源于同一个chunk，那么hash值就一样
   //------------问题:JS和CSS的HASH值还是一样的，因为css是在JS中被引入的，属于同一个chunk
   //-----03.使用contenthash:根据文件的内容生成hash值:不同文件的hash值一定不一样
+
+
+  // 生产环境:tree shaking :去除无用代码
+  // 前提:01必须使用ES6模块化 02开启production环境
+  // 作用:减少代码体积,去除掉哪些在模块中书写但是没有使用到的代码块和函数
+  // 在package.json中配置:
+  // sideEffect:false 所有代码都没有副作用（都可以进行tree shaking）
+  //-----------------：问题:可能会把css/@babel/ployfill（副作用）文件干掉
+  // 修改sideEffect:配置为：sideEffect:["*.css"，".less"] //css,less文件不进行treeshaking
   
 
 
