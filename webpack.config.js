@@ -149,7 +149,8 @@ module.exports = (env, argv) => {
                 }
               }
             ]
-          ]
+          ],
+          cacheDirectory:true
         }
       })
       const miniCssExtractPlugin =  new MiniCssExtractPlugin({
