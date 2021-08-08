@@ -286,6 +286,36 @@ webpack会以./src/index.js 为入口开始打包，打包后输出到./build.js
   // sideEffect:false 所有代码都没有副作用（都可以进行tree shaking）
   //-----------------：问题:可能会把css/@babel/ployfill（副作用）文件干掉
   // 修改sideEffect:配置为：sideEffect:["*.css"，".less"] //css,less文件不进行treeshaking
+
+  
+
+// 代码分割
+// 第一种多页面入口程序
+  entry:{
+    main:'./src/js/index.js',
+    test:'./src/js/print.js'
+  }
+将来打包出来的就会有两个JS文件，
+
+// 第二种:多入口结和optimization配置
+// 可以将所有用到的mode_modules中的代码单独打包成一个chunk最终输出，
+// 自动分析多入口文件中的chunk，有没有公共的文件，如果有会打包成一个单独的chunk。如果不配置的话多入口的每个入口文件都会对引入的第三方模块打包，即打包重复模块
+    optimization:{
+      splitChunks:{
+        chunks:'all'
+      }
+    },
+第三种:
+// 通过JS的方式让某个文件单独打包成一个chunk
+// import动态导入语法:能将某个文件单独打包
+///*webpackChunkName:'text'*/:配置打包生成的文件名字为text,不配置的话会用chunk的ID名来命名
+import(/*webpackChunkName:'text'*/'./add').then(value=>{
+  console.log(value);
+  console.log('文件加载成功')
+}).catch(()=>{
+  console.log('文件加载失败')
+})
+  
   
 
 

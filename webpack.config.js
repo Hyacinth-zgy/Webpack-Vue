@@ -22,6 +22,11 @@ const ESLINT = {
   }
 };
 
+const OPTIMIZATION={
+  splitChunks:{
+    chunks:'all'
+  }
+};
 const config = {
   resolve: {
     // 在导入语句没带文件后缀时，Webpack 会自动带上后缀后去尝试访问文件是否存在。  resolve.extensions 用于配置在尝试过程中用到的后缀列表，默认是：
@@ -161,6 +166,7 @@ module.exports = (env, argv) => {
       config.plugins.push(miniCssExtractPlugin);
       // 压缩CSS
       config.plugins.push(new OptimizeCssAssetsPlugin());
+      config.optimization = OPTIMIZATION;
     }
 
   return config;

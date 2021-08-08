@@ -4,6 +4,9 @@ import { getLocaL } from './utill/hepler';
 import './asset/style/index.css';
 import './asset/less/index.less';
 import './asset/style/iconfont.css';
+import $JQ from 'jquery';
+
+console.log($JQ);
 
 window.getLocaL = getLocaL;
 console.log(data.name);
