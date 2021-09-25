@@ -97,6 +97,7 @@ const config = {
   new webpack.DllReferencePlugin({
     manifest:resolve(__dirname,'dll/manifest.json')
   }),
+  // 将额外打包生成的JS文件引入在index.html中引入
   new AddAssetHtmlWebpackPlugin({
     filepath:resolve(__dirname,'dll/otherpakl.js')
   })
