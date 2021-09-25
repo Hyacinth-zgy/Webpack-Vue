@@ -5,6 +5,8 @@ const HtmlWebpckPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
+const webpack = require('webpack');
+const AddAssetHtmlWebpackPlugin = require('add-asset-html-webpack-plugin');
 
 let CSSLOAD = {
   test:/\.css$/,
@@ -91,6 +93,13 @@ const config = {
         removeComments:true
       }
   }),
+  // 告诉weboack那些库不参与打包，同时使用时的昵称也得变
+  new webpack.DllReferencePlugin({
+    manifest:resolve(__dirname,'dll/manifest.json')
+  }),
+  new AddAssetHtmlWebpackPlugin({
+    filepath:resolve(__dirname,'dll/otherpakl.js')
+  })
   ],
   externals:{}
 };
@@ -193,6 +202,8 @@ module.exports = (env, argv) => {
         skipWaiting:true
       });
       config.plugins.push(workboxWebpackPlugin);
+
+
       config.optimization = OPTIMIZATION;
 
       // 配置externals
