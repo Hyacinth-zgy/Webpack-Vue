@@ -136,28 +136,43 @@ module.exports = (env, argv) => {
       config.module.rules.push({
         test:/\.js$/,
         exclude:/node_modules/,
-        loader:'babel-loader',
-        options:{
-          presets:[
-            [
-              '@babel/preset-env',
-              {
-                useBuiltIns:'usage',
-                corejs:{
-                  version:3
-                },
-                targets:{
-                  chrome:'60',
-                  firefox:'60',
-                  ie:'9',
-                  safari:'10',
-                  edge:'17'
-                }
-              }
-            ]
-          ],
-          cacheDirectory:true
-        }
+        
+        use:[
+          // 开启多进程打包
+          // 进程启动大概600ms,进程通信也有开销
+          // 一旦多进程打包用得不好反而会影响打开速度
+          // 只用工作消耗时间比较长，才需要使用多进程打包
+          {
+            loader:'thread-loader',
+            options:{
+              worker:2
+            }
+          },
+          {
+            loader:'babel-loader',
+            options:{
+              presets:[
+                [
+                  '@babel/preset-env',
+                  {
+                    useBuiltIns:'usage',
+                    corejs:{
+                      version:3
+                    },
+                    targets:{
+                      chrome:'60',
+                      firefox:'60',
+                      ie:'9',
+                      safari:'10',
+                      edge:'17'
+                    }
+                  }
+                ]
+              ],
+              cacheDirectory:true
+            }
+          }
+        ],
       })
       const miniCssExtractPlugin =  new MiniCssExtractPlugin({
         // 配置提取出来的css文件名
@@ -172,7 +187,7 @@ module.exports = (env, argv) => {
         // 2 删除旧的serviceworker
         // 此配置会生成一个serviceworker的配置文件，通过·此配置文件去注册serviceworker
         // 去到入口JS文件中注册
-        
+
         clientsClaim:true,
         skipWaiting:true
       });

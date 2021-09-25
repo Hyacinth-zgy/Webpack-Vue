@@ -1,4 +1,5 @@
 #########指令简介：
+// webpack 一旦使用多个loader就得使用数组
 
 开发环境 : webpack ./src/index.js -o ./build/build.js --mode=development
 webpack会以./src/index.js 为入口开始打包，打包后输出到./build.js,整体打包环境是开发环境
@@ -349,6 +350,11 @@ document.querySelector('#add').onClick = function(){
 
 // PWA技术 渐进式网络开发应用程序（离线也可以访问技术）
 // workbox-->workbox-webpack-plugin
+
+
+// 多进程打包 同一时间内有多个进程对应用进行打包 使得打包速度更快一些
+// npm i thread-loader -D
+// 需要给哪个模块打包就给谁使用， 一般是个babel-loader使用
 
 
 
