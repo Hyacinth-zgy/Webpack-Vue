@@ -3,7 +3,8 @@
 const { resolve }  = require('path');
 const HtmlWebpckPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
 
 let CSSLOAD = {
   test:/\.css$/,
@@ -166,6 +167,16 @@ module.exports = (env, argv) => {
       config.plugins.push(miniCssExtractPlugin);
       // 压缩CSS
       config.plugins.push(new OptimizeCssAssetsPlugin());
+      const workboxWebpackPlugin = new WorkboxWebpackPlugin.GenerateSW({
+        // 1 帮助serviceworker快速启动
+        // 2 删除旧的serviceworker
+        // 此配置会生成一个serviceworker的配置文件，通过·此配置文件去注册serviceworker
+        // 去到入口JS文件中注册
+        
+        clientsClaim:true,
+        skipWaiting:true
+      });
+      config.plugins.push(workboxWebpackPlugin);
       config.optimization = OPTIMIZATION;
     }
 

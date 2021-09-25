@@ -346,6 +346,12 @@ document.querySelector('#add').onClick = function(){
     console.log('文件加载失败')
   })
 }
+
+// PWA技术 渐进式网络开发应用程序（离线也可以访问技术）
+// workbox-->workbox-webpack-plugin
+
+
+
   
   
 
