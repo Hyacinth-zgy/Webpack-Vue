@@ -92,6 +92,7 @@ const config = {
       }
   }),
   ],
+  externals:{}
 };
 
 module.exports = (env, argv) => {
@@ -193,6 +194,11 @@ module.exports = (env, argv) => {
       });
       config.plugins.push(workboxWebpackPlugin);
       config.optimization = OPTIMIZATION;
+
+      // 配置externals
+      // 忽略库名 -- npm 包名
+      // 这里是拒绝jQuery被引入
+      config.externals.jquery = 'jQuery'
     }
 
   return config;

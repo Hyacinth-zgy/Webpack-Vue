@@ -356,7 +356,7 @@ document.querySelector('#add').onClick = function(){
 // npm i thread-loader -D
 // 需要给哪个模块打包就给谁使用， 一般是个babel-loader使用
 
-
+// external 防止将
 
   
   
